@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AIS Simulation Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <h1>AIS Simulation Dashboard</h1>
+    <div id="map" style="height: 500px;"></div>
+    <h2>Vessel Statistics</h2>
+    <table>
+        <tr>
+            <th>MMSI</th>
+            <th>Total Distance (NM)</th>
+            <th>Average Speed (knots)</th>
+        </tr>
+        {% for vessel in vessels %}
+        <tr>
+            <td>{{ vessel.mmsi }}</td>
+            <td>{{ "%.2f" % vessel.distance }}</td>
+            <td>{{ "%.2f" % vessel.avg_speed }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{{ url_for('shutdown') }}">Shutdown Server</a>
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+    <script>
+        initializeMap({{ vessels | tojson }});
+    </script>
+</body>
+</html>

@@ -27,6 +27,7 @@ ais_simulation/
 │   └── js/
 │       └── map.js         # JavaScript for Leaflet map
 ├── main.py                # Entry point for the simulation
+├── tests.py               # Unit and integration tests
 ├── README.md              # Project documentation
 ├── requirements.txt       # Python dependencies
 ```
@@ -44,6 +45,7 @@ ais_simulation/
 - **`templates/index.html`**: Web dashboard HTML template.
 - **`static/css/style.css`**: Stylesheet for the dashboard UI.
 - **`static/js/map.js`**: JavaScript for rendering vessel tracks using Leaflet.
+- **`tests.py`**: Contains unit and integration tests for ingestion and analytics logic.
 
 ---
 
@@ -56,6 +58,7 @@ ais_simulation/
 - SQLite DB (`ais_data.db`) is created if missing.
 - Flask dashboard runs on [http://localhost:5000](http://localhost:5000).
 - API endpoints return data in JSON.
+- Tests use an in-memory SQLite database.
 
 ---
 
@@ -73,11 +76,11 @@ python -m venv env
 env\scripts\activate
 ```
 
-
 ### 3. Install Dependencies:
 ```bash
 pip install -r requirements.txt
 ```
+
 
 ### 4. Run the Simulation:
 ```bash
@@ -85,7 +88,18 @@ python main.py
 ```
 
 ---
+## Running Tests
 
+- The tests.py file includes unit and integration tests for:
+- Ingestion Logic: Tests DatabaseManager.ingest_message for valid and invalid AIS messages.
+- Analytics Logic: Tests DatabaseManager.get_vessel_track and DatabaseManager.calculate_vessel_stats for various scenarios.
+- API Endpoints: Tests /api/vessel/<mmsi>/track and /api/vessel/<mmsi>/stats for correct responses and error handling.
+
+#### To run tests:
+```bash
+pytest tests.py -v
+```
+- Expected output will show test results (e.g., test_ingest_valid_message PASSED, etc.). Ensure pytest is installed via requirements.txt.
 
 ## Access the Dashboard and API:
 
@@ -109,6 +123,7 @@ python main.py
 - File Encoding: Uses UTF-8 for ports.csv to handle potential non-ASCII characters.
 - Validation: Checks latitude, longitude, and speed; logs malformed messages.
 - Pre-calculation: Positions are pre-calculated for simplicity.
+- Testing: Uses pytest with an in-memory database to ensure isolation and repeatability.
 
 ## Running the Solution
 

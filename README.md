@@ -2,7 +2,7 @@
 
 ## Overview
 
-This Python-based solution simulates the movement of multiple vessels along dynamically generated maritime routes using `searoute-py`. It generates AIS position reports with `pyais`, streams them over WebSocket, stores them in a SQLite database using SQLAlchemy, and displays them via a Flask-powered web dashboard.
+This Python-based solution simulates the movement of vessels along dynamically generated maritime routes using `searoute-py`. It generates AIS position reports with `pyais`, streams them over WebSocket, stores them in a SQLite database using SQLAlchemy, and displays them via a Flask-powered web dashboard.
 
 ---
 
